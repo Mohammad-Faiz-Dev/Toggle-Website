@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CSS-Toggle</title>
+  <style id="dynamic-style"></style>
+</head>
+<body>
+  <!-- 🌌 Star Background -->
+  <div id="star-container"></div>
+
+  <!-- Main Content -->
+  <div id="content">
+    <h1 class="animate-top">Toggle CSS</h1>
+    <p class="animate-left">Welcome to CSS toggle</p>
+    <p class="animate-right">Enjoy your stay and explore!<br>
+    (there's not much)</p>
+    <p class="animate-bottom">Made with ❤️ by Faiz.</p>
+    <button id="toggleCssBtn">Toggle CSS</button>
+  </div>
+
+  <script>
+    const toggleBtn = document.getElementById("toggleCssBtn");
+    const styleTag = document.getElementById("dynamic-style");
+    const starContainer = document.getElementById("star-container");
+    let cssEnabled = false;
+
+    const cssStyles = `
+      :root {
+        font-size: 16px;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #5dade2;
+      }
+
+      #star-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+        pointer-events: none;
+        overflow: hidden;
+      }
+
+      .star {
+        position: absolute;
+        width: 1.5rem;
+        height: 1.5rem;
+        background-image: url('img/star.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+        animation: floatStar 6s infinite ease-in-out;
+        opacity: 0.8;
+      }
+
+      @keyframes floatStar {
+        0% { transform: translateY(0); opacity: 0.7; }
+        50% { transform: translateY(-1.5rem); opacity: 1; }
+        100% { transform: translateY(0); opacity: 0.7; }
+      }
+
+      .bicycle {
+        position: absolute;
+        width: 6rem;
+        height: 4rem;
+        background-image: url('img/bicycle.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+        animation:
+          floatBicycle 65s linear infinite,
+          spinBicycle 30s linear infinite;
+        opacity: 0.95;
+      }
+
+      @keyframes floatBicycle {
+        0% {
+          top: 25%;
+          left: -10rem;
+        }
+        50% {
+          top: 30%;
+          left: 100%;
+        }
+        100% {
+          top: 25%;
+          left: -10rem;
+        }
+      }
+
+      @keyframes spinBicycle {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+
+      .rock {
+        position: absolute;
+        width: 8rem;
+        height: 8rem;
+        background-image: url('img/rock.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+        opacity: 0.5;
+        animation:
+          driftRock 120s linear infinite,
+          rotateRock 90s linear infinite;
+        z-index: -1;
+      }
+
+      @keyframes driftRock {
+        0% {
+          top: 10%;
+          left: -10rem;
+        }
+        50% {
+          top: 15%;
+          left: 110%;
+        }
+        100% {
+          top: 10%;
+          left: -10rem;
+        }
+      }
+
+      @keyframes rotateRock {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+
+      #content {
+        position: relative;
+        z-index: 1;
+        text-align: center;
+        background: white;
+        padding: 2rem;
+        border-radius: 1.5rem;
+        width: 90%;
+        max-width: 35rem;
+        box-shadow:
+          0 0.25rem 0.75rem rgba(0, 0, 0, 0.15),
+          0 0.5rem 1.5rem rgba(0, 0, 0, 0.1),
+          0 1rem 2rem rgba(0, 0, 0, 0.05);
+      }
+
+      h1, p {
+        margin: 1rem 0;
+        font-size: 1.5rem;
+      }
+
+      button {
+        margin-top: 1.5rem;
+        padding: 0.6rem 1.5rem;
+        font-size: 1rem;
+        background-color: #333;
+        color: white;
+        border: none;
+        border-radius: 0.5rem;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      button:hover {
+        background-color: #555;
+      }
+
+      .animate-top {
+        animation: slideTop 1s ease-out;
+      }
+
+      .animate-left {
+        animation: slideLeft 1s ease-out;
+      }
+
+      .animate-right {
+        animation: slideRight 1s ease-out;
+      }
+
+      .animate-bottom {
+        animation: slideBottom 1s ease-out;
+      }
+
+      @keyframes slideTop {
+        from { opacity: 0; transform: translateY(-2rem); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      @keyframes slideLeft {
+        from { opacity: 0; transform: translateX(-2rem); }
+        to { opacity: 1; transform: translateX(0); }
+      }
+
+      @keyframes slideRight {
+        from { opacity: 0; transform: translateX(2rem); }
+        to { opacity: 1; transform: translateX(0); }
+      }
+
+      @keyframes slideBottom {
+        from { opacity: 0; transform: translateY(2rem); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+    `;
+
+    toggleBtn.addEventListener("click", () => {
+      cssEnabled = !cssEnabled;
+      styleTag.innerHTML = cssEnabled ? cssStyles : "";
+      if (cssEnabled) {
+        generateStars(30);
+        generateBicycle();
+        generateRock();
+      } else {
+        starContainer.innerHTML = '';
+      }
+    });
+
+    function generateStars(count) {
+      starContainer.innerHTML = '';
+      for (let i = 0; i < count; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        star.style.top = Math.random() * 100 + 'vh';
+        star.style.left = Math.random() * 100 + 'vw';
+        star.style.animationDuration = (4 + Math.random() * 4) + 's';
+        starContainer.appendChild(star);
+      }
+    }
+
+    function generateBicycle() {
+      const bike = document.createElement('div');
+      bike.className = 'bicycle';
+      starContainer.appendChild(bike);
+    }
+
+    function generateRock() {
+      const rock = document.createElement('div');
+      rock.className = 'rock';
+      starContainer.appendChild(rock);
+    }
+  </script>
+</body>
+</html>
