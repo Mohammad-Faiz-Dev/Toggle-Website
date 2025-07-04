@@ -34,7 +34,7 @@
 
     const baseCssStyles = `
       :root {
-        font-size: 16px;
+        font-size: 1rem; /* Base font size */
       }
 
       body {
@@ -71,13 +71,16 @@
         background-size: contain;
         background-repeat: no-repeat;
         animation: floatStar 6s infinite ease-in-out;
-        opacity: 0.8;
+        opacity: 0;
         filter: none;
-        transition: filter 0.3s ease;
+        transition: all 0.3s ease;
+        display: none;
       }
 
       body.dark-mode .star {
-        filter: drop-shadow(0 0 0.5rem rgba(255, 255, 0, 0.6));
+        display: block;
+        opacity: 0.8;
+        filter: drop-shadow(0 0 0.8rem rgba(255, 255, 0, 0.8));
       }
 
       @keyframes floatStar {
@@ -236,7 +239,8 @@
 
       body.dark-mode .moon {
         opacity: 0.9;
-        filter: drop-shadow(0 0 2rem rgba(255, 255, 255, 0.4));
+        display: block;
+        filter: drop-shadow(0 0 2rem rgba(255, 255, 255, 0.8));
       }
 
       @keyframes driftRustyCar {
@@ -352,6 +356,60 @@
         animation: slideBottom 1s ease-out;
       }
 
+      .cloud {
+        position: absolute;
+        background-image: url('img/cloud.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+        opacity: 0.8;
+        z-index: -1;
+        display: block;
+        filter: brightness(1.1);
+      }
+
+      body.dark-mode .cloud {
+        display: none;
+      }
+
+      .cloud-1 {
+        width: 10rem;
+        height: 5rem;
+        top: 15%;
+        left: 5%;
+        animation: driftCloud1 45s linear infinite;
+      }
+
+      .cloud-2 {
+        width: 8rem;
+        height: 4rem;
+        top: 25%;
+        left: 60%;
+        animation: driftCloud2 55s linear infinite reverse;
+      }
+
+      .cloud-3 {
+        width: 12rem;
+        height: 6rem;
+        top: 35%;
+        left: 30%;
+        animation: driftCloud3 65s linear infinite;
+      }
+
+      @keyframes driftCloud1 {
+        0% { transform: translateX(-20%); }
+        100% { transform: translateX(120%); }
+      }
+
+      @keyframes driftCloud2 {
+        0% { transform: translateX(-20%); }
+        100% { transform: translateX(120%); }
+      }
+
+      @keyframes driftCloud3 {
+        0% { transform: translateX(-20%); }
+        100% { transform: translateX(120%); }
+      }
+
       @keyframes slideTop {
         from { opacity: 0; transform: translateY(-2rem); }
         to { opacity: 1; transform: translateY(0); }
@@ -377,16 +435,18 @@
       cssEnabled = !cssEnabled;
       styleTag.innerHTML = cssEnabled ? baseCssStyles : "";
       if (cssEnabled) {
-        generateStars(30);
         generateBicycle();
         generateRock();
         generateBottomRock();
         generateRustyCar();
         generateCssLogo();
         generateMoon();
-        // Apply dark mode state if it was enabled
+        generateClouds();
         if (darkMode) {
           document.body.classList.add('dark-mode');
+          generateStars(30);
+        } else {
+          starContainer.querySelectorAll('.star').forEach(star => star.remove());
         }
       } else {
         starContainer.innerHTML = '';
@@ -406,10 +466,21 @@
         document.body.classList.add('dark-mode');
         darkModeBtn.textContent = "☀️ Light Mode";
         playSound('sounds/howling.mp3');
+        generateStars(30);
       } else {
         document.body.classList.remove('dark-mode');
         darkModeBtn.textContent = "🌙 Dark Mode";
         playSound('sounds/rooster-calling.mp3');
+        starContainer.querySelectorAll('.star').forEach(star => star.remove());
+      }
+      // Force re-generation of all elements
+      if (cssEnabled) {
+        generateBicycle();
+        generateRock();
+        generateBottomRock();
+        generateRustyCar();
+        generateMoon();
+        generateClouds();
       }
     });
 
@@ -435,13 +506,15 @@
 
     function generateStars(count) {
       starContainer.innerHTML = '';
-      for (let i = 0; i < count; i++) {
-        const star = document.createElement('div');
-        star.className = 'star';
-        star.style.top = Math.random() * 100 + 'vh';
-        star.style.left = Math.random() * 100 + 'vw';
-        star.style.animationDuration = (4 + Math.random() * 4) + 's';
-        starContainer.appendChild(star);
+      if (darkMode) {
+        for (let i = 0; i < count; i++) {
+          const star = document.createElement('div');
+          star.className = 'star';
+          star.style.top = Math.random() * 100 + 'vh';
+          star.style.left = Math.random() * 100 + 'vw';
+          star.style.animationDuration = (4 + Math.random() * 4) + 's';
+          starContainer.appendChild(star);
+        }
       }
     }
 
@@ -479,6 +552,20 @@
       const moon = document.createElement('div');
       moon.className = 'moon';
       starContainer.appendChild(moon);
+    }
+
+    function generateClouds() {
+      const cloud1 = document.createElement('div');
+      cloud1.className = 'cloud cloud-1';
+      starContainer.appendChild(cloud1);
+
+      const cloud2 = document.createElement('div');
+      cloud2.className = 'cloud cloud-2';
+      starContainer.appendChild(cloud2);
+
+      const cloud3 = document.createElement('div');
+      cloud3.className = 'cloud cloud-3';
+      starContainer.appendChild(cloud3);
     }
 
   </script>
