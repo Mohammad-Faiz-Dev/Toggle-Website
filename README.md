@@ -1,4 +1,4 @@
-# CSS Toggle Animation Site 🌙✨
+# CSS Toggle Animation Site 🌙✨ (V2)
 
 This is a fun, animated HTML/CSS/JavaScript project that showcases interactive features like:
 
