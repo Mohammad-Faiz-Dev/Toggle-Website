@@ -1,43 +1,54 @@
-# 🌌 Floating Animation Webpage
+# CSS Toggle Animation Site 🌙✨
 
-A responsive animated webpage with CSS-applied animations and colors All animations are powered by HTML, CSS, and vanilla JavaScript.
+This is a fun, animated HTML/CSS/JavaScript project that showcases interactive features like:
+
+- Dynamic CSS toggle
+- Light/Dark mode switch
+- Background stars and animated elements (bike, moon, rocks, rusty car)
+- Sound toggle with ambient effects
+- Pure JS-driven animations and DOM manipulation
+
+## 💡 Features
+
+- 🎨 Toggle CSS styles dynamically
+- 🌗 Switch between Light and Dark Modes
+- 🌌 Starfield animation
+- 🚲 Floating rotating bicycle
+- 🪨 Floating and rotating rocks
+- 🚘 Rusty car with motion
+- 🌕 Glowing moon that brightens in dark mode
+- 🔊 Toggle ambient sound effects
+- 🖱️ Scroll-responsive visuals *(coming soon!)*
+
+## 📁 Structure
+
+/img
+star.png
+bicycle.png
+rock.png
+rusty-car.png
+moon.png
+css-logo.png
+
+/sounds
+howling.mp3
+rooster-calling.mp3
+
+index.html
+
+## 🛠 Tools & Credits
+
+- HTML + CSS + JavaScript (Vanilla)
+- Bugs and logic issues fixed with the help of **[Claude.ai](https://claude.ai)** 🤖
+- Visual polishing, animation tweaking, and performance suggestions assisted by **ChatGPT**
+
+## 🚀 Hosting
+
+This site is deployed via **GitHub Pages**.  
+If you're seeing an outdated version, clear your browser cache or use DevTools → Network → "Disable cache" and reload.
+
+## 👤 Author
+
+Made with ❤️ by **Faiz**
 
 ---
-
-## 📸 Live Demo
-
-https://mohammad-faiz-dev.github.io/Toggle-Website/
-
-
----
-
-## 🎯 Features
-
-- 🌟 Starry animated background with twinkling effects  
-- 🚲 Bicycle floating across the screen with anti-gravity spinning  
-- 🪨 Multiple rocks slowly spinning and floating on randomized paths  
-- ✨ Clean toggle button to dynamically enable/disable the animated styles  
-- 📱 Fully responsive (using `rem`, `em`, and `%` units)  
-
----
-
-## 🔧 Technologies Used
-
-| Tech         | Purpose                              |
-|--------------|--------------------------------------|
-| HTML5        | Structure of the webpage             |
-| CSS3         | Styling, animations, transitions     |
-| JavaScript   | Dynamic DOM manipulation & effects   |
-| ChatGPT (by OpenAI) | Debugging, code generation, and enhancement suggestions |
-
----
-
-## 📁 Folder Structure
-
-project-root/
-├── index.html
-├── img/
-│ ├── star.png
-│ ├── bicycle.png
-│ ├── rock.png
-└── README.md
