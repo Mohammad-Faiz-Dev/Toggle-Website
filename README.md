@@ -6,7 +6,8 @@ A responsive animated webpage with CSS-applied animations and colors All animati
 
 ## 📸 Live Demo
 
-(You can add your GitHub Pages URL here after publishing)
+https://mohammad-faiz-dev.github.io/Toggle-Website/
+
 
 ---
 
