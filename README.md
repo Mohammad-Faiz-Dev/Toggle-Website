@@ -67,6 +67,24 @@ If you see an older version, try:
 
 ---
 
+## 🔄 Version Comparison: v1.0 vs v2.2
+
+| Feature / Improvement             | v1.0        | v2.2         |
+|----------------------------------|-------------|--------------|
+| CSS Toggle Button                | ✅ Yes       | ✅ Improved UX |
+| Light/Dark Mode Support          | ❌ No        | ✅ Added |
+| Glowing Moon                     | ❌ No        | ✅ Visible & glows in dark mode |
+| Starfield Animation              | ✅ Always on | ✅ Dark Mode only with glow effect |
+| Floating Bicycle, Rocks, Car     | ✅ Always on | ✅ Light Mode only |
+| Ambient Sounds (Rooster/Howling) | ❌ No        | ✅ Toggleable sounds |
+| Cloud Animations                 | ❌ No        | ✅ Light Mode only |
+| Buttons for Interactivity        | ❌ Only one  | ✅ Three interactive buttons |
+| Responsive Design (rem/em/%)     | ❌ px units  | ✅ Fully responsive |
+| DOM Structure & Animations       | ⚠️ Basic     | ✅ Modular, scalable, polished |
+| Code Logic & Bug Fixes           | ⚠️ Some bugs | ✅ Fixed using ChatGPT & Blackbox.ai |
+| README Documentation             | ❌ Minimal   | ✅ Detailed with changelog & credits |
+
+---
 ## 👤 Author
 
-Made with ❤️ by **Faiz**
+Made by **Faiz**
