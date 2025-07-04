@@ -18,15 +18,21 @@
     (there's not much)</p>
     <p class="animate-bottom">Made with ❤️ by Faiz.</p>
     <button id="toggleCssBtn">Toggle CSS</button>
+    <button id="toggleDarkModeBtn">🌙 Dark Mode</button>
+    <button id="toggleSoundBtn">🔊 Sound On</button>
   </div>
 
   <script>
     const toggleBtn = document.getElementById("toggleCssBtn");
+    const darkModeBtn = document.getElementById("toggleDarkModeBtn");
+    const soundBtn = document.getElementById("toggleSoundBtn");
     const styleTag = document.getElementById("dynamic-style");
     const starContainer = document.getElementById("star-container");
     let cssEnabled = false;
+    let darkMode = false;
+    let soundEnabled = true;
 
-    const cssStyles = `
+    const baseCssStyles = `
       :root {
         font-size: 16px;
       }
@@ -39,6 +45,11 @@
         align-items: center;
         justify-content: center;
         background-color: #5dade2;
+        transition: background-color 0.3s ease;
+      }
+
+      body.dark-mode {
+        background-color: #1a1a1a;
       }
 
       #star-container {
@@ -61,6 +72,12 @@
         background-repeat: no-repeat;
         animation: floatStar 6s infinite ease-in-out;
         opacity: 0.8;
+        filter: none;
+        transition: filter 0.3s ease;
+      }
+
+      body.dark-mode .star {
+        filter: drop-shadow(0 0 0.5rem rgba(255, 255, 0, 0.6));
       }
 
       @keyframes floatStar {
@@ -76,10 +93,18 @@
         background-image: url('img/bicycle.png');
         background-size: contain;
         background-repeat: no-repeat;
+        opacity: 0.95;
+        display: block;
+      }
+
+      .bicycle:not(.dark-mode-disabled) {
         animation:
           floatBicycle 65s linear infinite,
           spinBicycle 30s linear infinite;
-        opacity: 0.95;
+      }
+
+      body.dark-mode .bicycle {
+        display: none;
       }
 
       @keyframes floatBicycle {
@@ -110,10 +135,18 @@
         background-size: cover;
         background-repeat: no-repeat;
         opacity: 0.5;
+        z-index: -1;
+        display: block;
+      }
+
+      .rock:not(.dark-mode-disabled) {
         animation:
           driftRock 120s linear infinite,
           rotateRock 90s linear infinite;
-        z-index: -1;
+      }
+
+      body.dark-mode .rock {
+        display: none;
       }
 
       @keyframes driftRock {
@@ -129,6 +162,118 @@
           top: 10%;
           left: -10rem;
         }
+      }
+
+      .bottom-rock {
+        position: absolute;
+        width: 8rem;
+        height: 8rem;
+        background-image: url('img/rock.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+        opacity: 0.4;
+        bottom: -4rem;
+        left: 100%;
+        z-index: -1;
+        display: block;
+      }
+
+      .bottom-rock:not(.dark-mode-disabled) {
+        animation:
+          driftBottomRock 140s linear infinite,
+          rotateBottomRock 120s linear infinite;
+      }
+
+      body.dark-mode .bottom-rock {
+        display: none;
+      }
+
+      @keyframes driftBottomRock {
+        0% { left: 100%; bottom: -4rem; }
+        50% { left: 50%; bottom: -2rem; }
+        100% { left: -10rem; bottom: -4rem; }
+      }
+
+      .rusty-car {
+        position: absolute;
+        width: 9rem;
+        height: 5rem;
+        background-image: url('img/rusty-car.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+        opacity: 0.6;
+        bottom: 1rem;
+        left: -12rem;
+        z-index: -1;
+        display: block;
+      }
+
+      .rusty-car:not(.dark-mode-disabled) {
+        animation:
+          driftRustyCar 45s linear infinite,
+          rotateRustyCar 60s linear infinite;
+      }
+
+      body.dark-mode .rusty-car {
+        display: none;
+      }
+
+      .moon {
+        position: fixed;
+        top: 15%;
+        right: 10%;
+        width: 8rem;
+        height: 8rem;
+        background-image: url('img/moon.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+        opacity: 0.15;
+        z-index: 0;
+        display: block;
+        filter: none;
+        transition: all 0.3s ease;
+      }
+
+      body.dark-mode .moon {
+        opacity: 0.9;
+        filter: drop-shadow(0 0 2rem rgba(255, 255, 255, 0.4));
+      }
+
+      @keyframes driftRustyCar {
+        0% { left: -12rem; bottom: 1rem; }
+        50% { left: 50%; bottom: 2.5rem; }
+        100% { left: 100%; bottom: 1rem; }
+      }
+
+      .css-logo {
+        position: absolute;
+        top: 1rem;
+        left: 1rem;
+        width: 3rem;
+        height: 3rem;
+        background-image: url('img/css-logo.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+        animation: spinLogo 5s infinite linear;
+        transform-style: preserve-3d;
+      }
+
+      @keyframes spinLogo {
+        0%   { transform: rotateX(0deg) rotateY(0deg); }
+        25%  { transform: rotateX(20deg) rotateY(90deg); }
+        50%  { transform: rotateX(0deg) rotateY(180deg); }
+        75%  { transform: rotateX(-20deg) rotateY(270deg); }
+        100% { transform: rotateX(0deg) rotateY(360deg); }
+      }
+
+      @keyframes rotateRustyCar {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(-360deg); }
+      }
+
+      @keyframes rotateBottomRock {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
       }
 
       @keyframes rotateRock {
@@ -149,6 +294,17 @@
           0 0.25rem 0.75rem rgba(0, 0, 0, 0.15),
           0 0.5rem 1.5rem rgba(0, 0, 0, 0.1),
           0 1rem 2rem rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+      }
+
+      body.dark-mode #content {
+        background: #2a2a2a;
+        color: white;
+        box-shadow:
+          0 0 1rem rgba(255, 255, 0, 0.3),
+          0 0 2rem rgba(255, 255, 0, 0.2),
+          0 0 3rem rgba(255, 255, 0, 0.1),
+          0 0.25rem 0.75rem rgba(0, 0, 0, 0.3);
       }
 
       h1, p {
@@ -157,7 +313,7 @@
       }
 
       button {
-        margin-top: 1.5rem;
+        margin: 0.5rem;
         padding: 0.6rem 1.5rem;
         font-size: 1rem;
         background-color: #333;
@@ -170,6 +326,14 @@
 
       button:hover {
         background-color: #555;
+      }
+
+      body.dark-mode button {
+        background-color: #444;
+      }
+
+      body.dark-mode button:hover {
+        background-color: #666;
       }
 
       .animate-top {
@@ -211,15 +375,63 @@
 
     toggleBtn.addEventListener("click", () => {
       cssEnabled = !cssEnabled;
-      styleTag.innerHTML = cssEnabled ? cssStyles : "";
+      styleTag.innerHTML = cssEnabled ? baseCssStyles : "";
       if (cssEnabled) {
         generateStars(30);
         generateBicycle();
         generateRock();
+        generateBottomRock();
+        generateRustyCar();
+        generateCssLogo();
+        generateMoon();
+        // Apply dark mode state if it was enabled
+        if (darkMode) {
+          document.body.classList.add('dark-mode');
+        }
       } else {
         starContainer.innerHTML = '';
+        document.body.classList.remove('dark-mode');
       }
     });
+
+    darkModeBtn.addEventListener("click", () => {
+      if (!cssEnabled) {
+        alert("Please enable CSS first!");
+        return;
+      }
+      
+      darkMode = !darkMode;
+      
+      if (darkMode) {
+        document.body.classList.add('dark-mode');
+        darkModeBtn.textContent = "☀️ Light Mode";
+        playSound('sounds/howling.mp3');
+      } else {
+        document.body.classList.remove('dark-mode');
+        darkModeBtn.textContent = "🌙 Dark Mode";
+        playSound('sounds/rooster-calling.mp3');
+      }
+    });
+
+    soundBtn.addEventListener("click", () => {
+      soundEnabled = !soundEnabled;
+      
+      if (soundEnabled) {
+        soundBtn.textContent = "🔊 Sound On";
+      } else {
+        soundBtn.textContent = "🔇 Sound Off";
+      }
+    });
+
+    function playSound(soundFile) {
+      if (!soundEnabled) return; // Don't play if sound is disabled
+      
+      const audio = new Audio(soundFile);
+      audio.volume = 0.5; // Set volume to 50%
+      audio.play().catch(error => {
+        console.log('Audio playback failed:', error);
+      });
+    }
 
     function generateStars(count) {
       starContainer.innerHTML = '';
@@ -244,6 +456,31 @@
       rock.className = 'rock';
       starContainer.appendChild(rock);
     }
+
+    function generateRustyCar() {
+      const car = document.createElement('div');
+      car.className = 'rusty-car';
+      starContainer.appendChild(car);
+    }
+
+    function generateBottomRock() {
+      const bottomRock = document.createElement('div');
+      bottomRock.className = 'bottom-rock';
+      starContainer.appendChild(bottomRock);
+    }
+
+    function generateCssLogo() {
+      const logo = document.createElement('div');
+      logo.className = 'css-logo';
+      document.getElementById('content').appendChild(logo);
+    }
+
+    function generateMoon() {
+      const moon = document.createElement('div');
+      moon.className = 'moon';
+      starContainer.appendChild(moon);
+    }
+
   </script>
 </body>
 </html>
