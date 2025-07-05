@@ -14,6 +14,12 @@ This is a fun, animated HTML/CSS/JavaScript project that showcases interactive f
 
 ---
 
+## Live Preview
+
+https://mohammad-faiz-dev.github.io/Toggle-Website/
+
+---
+
 ## 💡 Features
 
 - 🎨 Toggle CSS styles dynamically with a button
